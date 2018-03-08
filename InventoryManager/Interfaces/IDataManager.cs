@@ -29,6 +29,6 @@ namespace InventoryManager
         /// Returns all items in the database
         /// </summary>
         /// <returns></returns>
-        Dictionary<string, List<string>> GetAllItems();
+        IEnumerable<string> GetAllItems();
     }
 }
