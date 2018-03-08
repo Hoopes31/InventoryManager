@@ -10,12 +10,14 @@ namespace InventoryManager
         private IInputProvider _input;
         private ICredentialManager _credentialManager;
         private AppStatus _status;
+        private IDataManager _inventoryManager;
 
-        public AppLogic(string credentialData)
+        public AppLogic(string credentialData, string inventoryData)
         {
             _output = new OutputConsole();
             _input = new InputConsole();
             _credentialManager = new CredentialManager(credentialData, _output);
+            _inventoryManager = new InventoryDataManager(inventoryData, _output);
         }
 
         public void Run()
@@ -61,7 +63,12 @@ namespace InventoryManager
             while (_status == AppStatus.UserActions)
             {
                 _output.Send("INVENTORY MANAGER ACTIONS");
-                Console.ReadKey();
+                _output.Send("1 Create item");
+                _output.Send("2 Add to item quantity");
+                _output.Send("3 Subtract from item quantity");
+                _output.Send("4 Show all inventory");
+                _output.Send("5 Close program");
+                UserActions();
             }
 
             if (_status == AppStatus.CloseApp)
@@ -70,6 +77,115 @@ namespace InventoryManager
                 Thread.Sleep(2000);
                 Environment.Exit(0);
             }
+        }
+
+        public void UserActions()
+        {
+            var response = _input.ReadData();
+            Console.Clear();
+
+            if (response == "1")
+            {
+                CreateItem();
+            }
+            if (response == "2")
+            {
+                AddQuantity();
+            }
+            if (response == "3")
+            {
+                RemoveQuantity();
+            }
+            if (response == "4")
+            {
+                ShowAllItems();
+                _output.Send("Press enter to continue");
+                _input.ReadData();
+                Console.Clear();
+            }
+            if (response == "5")
+            {
+                _status = AppStatus.CloseApp;
+            }
+        }
+
+        public void ShowAllItems()
+        {
+            var inventory = _inventoryManager.GetAllItems();
+            foreach (var item in inventory)
+            {
+                _output.Send(item);
+            }
+        }
+
+        public void CreateItem()
+        {
+            int quantity;
+            _output.Send("CREATE ITEM");
+            _output.Send("What is the item name?");
+            var itemName = _input.ReadData();
+            _output.Send("How many would you like to upload into the system?");
+            var itemQuantity = _input.ReadData();
+
+            try
+            {
+                quantity = Int32.Parse(itemQuantity);
+            }
+            catch (Exception)
+            {
+                _output.Send("The quantity entered is invalid.");
+                return;
+            }
+
+            _inventoryManager.Create(itemName, quantity);
+        }
+
+        public void AddQuantity()
+        {
+            ShowAllItems();
+            int quantity;
+            _output.Send("ADD TO QUANTITY");
+            _output.Send("What is the item id?");
+            var itemId = _input.ReadData();
+            _output.Send("How many would you like to upload into the system?");
+            var itemQuantity = _input.ReadData();
+
+            try
+            {
+                quantity = Int32.Parse(itemQuantity);
+            }
+            catch (Exception)
+            {
+                _output.Send("The quantity entered is invalid.");
+                return;
+            }
+            _inventoryManager.Add(itemId, quantity);
+            Thread.Sleep(2000);
+            Console.Clear();
+        }
+
+        public void RemoveQuantity()
+        {
+            ShowAllItems();
+            int quantity;
+            _output.Send("REMOVE QUANTITY");
+            _output.Send("What is the item id?");
+            var itemId = _input.ReadData();
+            _output.Send("How many would you like to remove from the system?");
+            var itemQuantity = _input.ReadData();
+
+            try
+            {
+                quantity = Int32.Parse(itemQuantity);
+            }
+            catch (Exception)
+            {
+                _output.Send("The quantity entered is invalid.");
+                return;
+            }
+            _inventoryManager.Remove(itemId, quantity);
+            Thread.Sleep(2000);
+            Console.Clear();
         }
 
         public void LoginOrRegister()
@@ -92,10 +208,10 @@ namespace InventoryManager
 
             if (userSuccess)
             {
-                Console.Clear();
                 _status = AppStatus.UserActions;
                 _output.Send("Registration Successful");
                 Thread.Sleep(1500);
+                Console.Clear();
             }
             else
             {
@@ -111,11 +227,24 @@ namespace InventoryManager
             if (loginSuccess)
             {
                 _status = AppStatus.UserActions;
+                Console.Clear();
             }
             else
             {
                 Console.Clear();
                 _output.Send("INFO: Login Failed");
+                _output.Send("1 Try again");
+                var response = _input.ReadData();
+                if (response == "1")
+                {
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    Console.Clear();
+                    Run();
+                }
             }
         }
     }
