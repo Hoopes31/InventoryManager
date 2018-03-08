@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDisplayManager.cs" />
+    <Compile Include="IOutputProvider.cs" />
     <Compile Include="IInputProvider.cs" />
     <Compile Include="ICredentialManager.cs" />
     <Compile Include="IDataManager.cs" />
