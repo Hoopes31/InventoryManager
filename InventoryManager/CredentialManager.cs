@@ -26,7 +26,7 @@ namespace InventoryManager
             }
             else
             {
-                var newUser = string.Format($"{username}, {password}\r");
+                var newUser = string.Format($"{username},{password}\r");
                 File.AppendAllText(_connectionString, newUser);
                 return true;
             }
@@ -70,7 +70,7 @@ namespace InventoryManager
             }
             catch (Exception)
             {
-                var establish = string.Format($"Username, Password\r");
+                var establish = string.Format($"Username,Password\r");
                 File.AppendAllText(_connectionString, establish);
             }
         }
