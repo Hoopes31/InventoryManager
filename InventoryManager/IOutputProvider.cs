@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManager
 {
-    interface IOutputProvider
+    public interface IOutputProvider
     {
         /// <summary>
         /// Send data to the output

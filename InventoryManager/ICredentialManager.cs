@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManager
 {
-    interface ICredentialManager
+    public interface ICredentialManager
     {
         /// <summary>
         /// Creates a user in the credential database

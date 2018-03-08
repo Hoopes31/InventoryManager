@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManager
 {
-    interface IInputProvider
+    public interface IInputProvider
     {
         /// <summary>
         /// Reads data from the input provider
