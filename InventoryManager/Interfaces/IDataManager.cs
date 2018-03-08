@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace InventoryManager
 {
@@ -33,6 +29,6 @@ namespace InventoryManager
         /// Returns all items in the database
         /// </summary>
         /// <returns></returns>
-        List<string> GetAllItems();
+        Dictionary<string, List<string>> GetAllItems();
     }
 }

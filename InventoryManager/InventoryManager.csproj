@@ -42,10 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLogic.cs" />
+    <Compile Include="CredentialManager.cs" />
+    <Compile Include="InputConsole.cs" />
     <Compile Include="Interfaces\IOutputProvider.cs" />
     <Compile Include="Interfaces\IInputProvider.cs" />
     <Compile Include="Interfaces\ICredentialManager.cs" />
     <Compile Include="Interfaces\IDataManager.cs" />
+    <Compile Include="InventoryDataManager.cs" />
+    <Compile Include="OutputConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

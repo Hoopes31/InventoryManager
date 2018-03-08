@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManager
+﻿namespace InventoryManager
 {
     class Program
     {
         static void Main(string[] args)
         {
+            var credentialData = @"C:\Users\v-dohoop\Desktop\credential.csv";
+            var logic = new AppLogic(credentialData);
+            logic.Run();
         }
     }
 }
