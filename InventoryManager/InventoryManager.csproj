@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOutputProvider.cs" />
-    <Compile Include="IInputProvider.cs" />
-    <Compile Include="ICredentialManager.cs" />
-    <Compile Include="IDataManager.cs" />
+    <Compile Include="Interfaces\IOutputProvider.cs" />
+    <Compile Include="Interfaces\IInputProvider.cs" />
+    <Compile Include="Interfaces\ICredentialManager.cs" />
+    <Compile Include="Interfaces\IDataManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
