@@ -12,12 +12,12 @@ namespace InventoryManager
         private AppStatus _status;
         private IDataManager _inventoryManager;
 
-        public AppLogic(string credentialData, string inventoryData)
+        public AppLogic(IOutputProvider output, IInputProvider input, ICredentialManager credentialManager, IDataManager inventoryManager)
         {
-            _output = new OutputConsole();
-            _input = new InputConsole();
-            _credentialManager = new CredentialManager(credentialData, _output);
-            _inventoryManager = new InventoryDataManager(inventoryData, _output);
+            _output = output;
+            _input = input;
+            _credentialManager = credentialManager;
+            _inventoryManager = inventoryManager;
         }
 
         public void Run()
