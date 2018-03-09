@@ -136,6 +136,8 @@ namespace InventoryManager
             catch (Exception)
             {
                 _output.Send("The quantity entered is invalid.");
+                Thread.Sleep(1000);
+                Console.Clear();
                 return;
             }
 
@@ -163,6 +165,8 @@ namespace InventoryManager
             catch (Exception)
             {
                 _output.Send("The quantity entered is invalid.");
+                Thread.Sleep(1000);
+                Console.Clear();
                 return;
             }
             _inventoryManager.Add(itemId, quantity);
@@ -187,6 +191,8 @@ namespace InventoryManager
             catch (Exception)
             {
                 _output.Send("The quantity entered is invalid.");
+                Thread.Sleep(1000);
+                Console.Clear();
                 return;
             }
             _inventoryManager.Remove(itemId, quantity);
