@@ -71,6 +71,7 @@ namespace InventoryManager
                 UserActions();
             }
 
+            // Close application
             if (_status == AppStatus.CloseApp)
             {
                 _output.Send("Goodbye");
@@ -79,6 +80,9 @@ namespace InventoryManager
             }
         }
 
+        /// <summary>
+        /// Directs program to the proper action based off user input
+        /// </summary>
         public void UserActions()
         {
             var response = _input.ReadData();
@@ -110,6 +114,9 @@ namespace InventoryManager
             }
         }
 
+        /// <summary>
+        /// Displays all inventory items to the user
+        /// </summary>
         public void ShowAllItems()
         {
             var inventory = _inventoryManager.GetAllItems();
@@ -120,6 +127,9 @@ namespace InventoryManager
             }
         }
 
+        /// <summary>
+        /// Allows user to add a new item to inventory
+        /// </summary>
         public void CreateItem()
         {
             int quantity;
@@ -144,6 +154,9 @@ namespace InventoryManager
             _inventoryManager.Create(itemName, quantity);
         }
 
+        /// <summary>
+        /// Allows user to add to an existing inventory item
+        /// </summary>
         public void AddQuantity()
         {
             int quantity;
@@ -174,6 +187,9 @@ namespace InventoryManager
             Console.Clear();
         }
 
+        /// <summary>
+        /// Allows user to remove quantity from an exisiting inventory item
+        /// </summary>
         public void RemoveQuantity()
         {
             ShowAllItems();
@@ -200,6 +216,9 @@ namespace InventoryManager
             Console.Clear();
         }
 
+        /// <summary>
+        /// Runs selection loop for the welcome page. Login or Register
+        /// </summary>
         public void LoginOrRegister()
         {
             var response = _input.ReadData();
@@ -214,6 +233,11 @@ namespace InventoryManager
             Console.Clear();
         }
 
+        /// <summary>
+        /// Allows user to regsiter
+        /// </summary>
+        /// <param name="username">User input for username</param>
+        /// <param name="password">User input for password</param>
         public void Register(string username, string password)
         {
             var userSuccess = _credentialManager.CreateUser(username, password);
@@ -232,6 +256,11 @@ namespace InventoryManager
             }
         }
 
+        /// <summary>
+        /// Allow user to login
+        /// </summary>
+        /// <param name="username">User input for username</param>
+        /// <param name="password">User input for password</param>
         public void Login(string username, string password)
         {
             var loginSuccess = _credentialManager.CheckCredential(username, password);
