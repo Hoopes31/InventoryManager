@@ -87,6 +87,7 @@ namespace InventoryManager
             if (response == "1")
             {
                 CreateItem();
+                Console.Clear();
             }
             if (response == "2")
             {
@@ -112,9 +113,10 @@ namespace InventoryManager
         public void ShowAllItems()
         {
             var inventory = _inventoryManager.GetAllItems();
-            foreach (var item in inventory)
+            for(var i = 1; i < inventory.Count; i++)
             {
-                _output.Send(item);
+                var data = inventory[i].Split(',');
+                _output.Send($"Id: {data[0]} Name: {data[1]} Quantity: {data[2]}");
             }
         }
 
@@ -142,9 +144,13 @@ namespace InventoryManager
 
         public void AddQuantity()
         {
-            ShowAllItems();
             int quantity;
+
+            // Display inventory and inventory action
+            ShowAllItems();
             _output.Send("ADD TO QUANTITY");
+
+            // Get user input
             _output.Send("What is the item id?");
             var itemId = _input.ReadData();
             _output.Send("How many would you like to upload into the system?");
@@ -160,7 +166,7 @@ namespace InventoryManager
                 return;
             }
             _inventoryManager.Add(itemId, quantity);
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.Clear();
         }
 
@@ -184,7 +190,7 @@ namespace InventoryManager
                 return;
             }
             _inventoryManager.Remove(itemId, quantity);
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.Clear();
         }
 
