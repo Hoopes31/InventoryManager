@@ -64,11 +64,7 @@ namespace InventoryManager
 
         public void EstablishCredentialData(string connectionString)
         {
-            try
-            {
-                GetAllUsers();
-            }
-            catch (Exception)
+            if (!File.Exists(connectionString))
             {
                 var establish = string.Format($"Username,Password\r");
                 File.AppendAllText(_connectionString, establish);

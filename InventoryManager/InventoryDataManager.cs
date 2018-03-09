@@ -35,10 +35,11 @@ namespace InventoryManager
                 quantity = exisitingQuantity + quantity;
                 inventory[id][1] = quantity.ToString();
 
-                WriteAllData(inventory);
                 _output.Send($"{id}-{inventory[id][0]} previous quantity: {exisitingQuantity}");
                 _output.Send($"{id}-{inventory[id][0]} added quantity: {exisitingQuantity}");
                 _output.Send($"{id}-{inventory[id][0]} current quantity: {quantity}");
+
+                WriteAllData(inventory);
             }
             else
             {
@@ -62,10 +63,11 @@ namespace InventoryManager
                     return;
                 }
 
-                WriteAllData(inventory);
                 _output.Send($"{id}-{inventory[id][0]} previous quantity: {exisitingQuantity}");
                 _output.Send($"{id}-{inventory[id][0]} removed quantity: {exisitingQuantity}");
                 _output.Send($"{id}-{inventory[id][0]} quantity remaining: {quantity}");
+
+                WriteAllData(inventory);
             }
             else
             {
@@ -90,7 +92,7 @@ namespace InventoryManager
             return inventoryData;
         }
 
-        public IEnumerable<string> GetAllItems()
+        public List<string> GetAllItems()
         {
            return File.ReadAllLines(_connectionString).ToList();
         }
@@ -101,20 +103,17 @@ namespace InventoryManager
 
             foreach (var item in inventory)
             {
-                var entry = $"{item.Key},{item.Value[0]},{item.Value[0]}";
+                var entry = $"{item.Key},{item.Value[0]},{item.Value[1]}";
+                data.Add(entry);
             }
             File.WriteAllLines(_connectionString, data);
         }
 
         public void EstablishInventoryData(string connectionString)
         {
-            try
+            if (!File.Exists(connectionString))
             {
-                GetAllInventory();
-            }
-            catch (Exception)
-            {
-                var establish = string.Format($"0,Item,Quantity\r");
+                var establish = string.Format($"0,0,0\r");
                 File.AppendAllText(_connectionString, establish);
             }
         }
